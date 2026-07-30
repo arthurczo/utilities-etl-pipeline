@@ -1,5 +1,5 @@
-"""Simulador de streaming — processamento evento-a-evento em vez de lote.
-Ver README para comparação com o batch das camadas bronze/silver/gold."""
+"""Simulador de streaming — processamento evento-a-evento em vez de lote. """
+
 import time
 import random
 from datetime import datetime, timezone
