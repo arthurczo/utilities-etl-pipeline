@@ -1,6 +1,5 @@
-"""Gera visualizações estáticas a partir da camada Gold, para incluir no
-README/portfólio. Para um dashboard interativo e ao vivo, conectar a tabela
-Gold no BigQuery diretamente ao Looker Studio (ver README)."""
+"""Gera visualizações estáticas a partir da camada Gold. """
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
@@ -12,7 +11,6 @@ GOLD_DIR = DATA_DIR / "gold"
 REPORTS_DIR = get_data_dir().parent / "reports"
 
 plt.style.use("seaborn-v0_8-whitegrid")
-
 
 def plot_consumo_mensal(mensal_filename: str) -> Path:
     df = pd.read_parquet(GOLD_DIR / mensal_filename)
@@ -35,7 +33,6 @@ def plot_consumo_mensal(mensal_filename: str) -> Path:
     print(f"[VIZ] Gráfico salvo em {out_path}")
     return out_path
 
-
 def plot_ranking_unidades(ranking_filename: str) -> Path:
     df = pd.read_parquet(GOLD_DIR / ranking_filename).sort_values("consumo_medio_kwh")
 
@@ -51,7 +48,6 @@ def plot_ranking_unidades(ranking_filename: str) -> Path:
     plt.close(fig)
     print(f"[VIZ] Gráfico salvo em {out_path}")
     return out_path
-
 
 if __name__ == "__main__":
     plot_consumo_mensal("gold_mensal_consumo_energia.parquet")
