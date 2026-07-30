@@ -24,9 +24,8 @@ e carga no BigQuery.
 data/raw/  →  BRONZE  →  SILVER  →  GOLD  →  Visualização / BigQuery
 (CSV bruto)  (ingestão)  (limpeza)  (agregação)
 
-<img width="1832" height="327" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/c92c45fc-363b-40f0-b755-6a29b1262739" />
-
 ```
+<img width="1832" height="327" alt="Diagrama de arquitetura_modelo" src="https://github.com/user-attachments/assets/3baca41c-a59f-4b03-ac08-e3316d602f79" />
 
 Orquestrado pela DAG `utilities_medallion_pipeline`, rodando diariamente
 (batch). CDC roda em paralelo à ingestão, identificando registros novos
