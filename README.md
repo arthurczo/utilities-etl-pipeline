@@ -13,8 +13,8 @@ e carga no BigQuery.
 | Python | ETL |
 | Pandas | Transformação |
 | Airflow | Orquestração |
-| BigQuery | Data Warehouse |
-| Docker | Ambiente (integração preparada) |
+| BigQuery | Data Warehouse (integração preparada) |
+| Docker | Ambiente  |
 | Matplotlib | Visualização (integração preparada) |
 
 
