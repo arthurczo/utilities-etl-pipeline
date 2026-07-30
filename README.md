@@ -8,23 +8,14 @@ e carga no BigQuery.
 
 ## Stack
 
-- Python
-- Pandas
-- Apache Airflow
-- Docker
-- SQL
-- Arquitetura Medallion
-- BigQuery (integração preparada)
-- Looker Studio (integração preparada)
-
-  | Tecnologia | Papel          |
-| ---------- | -------------- |
-| Python     | ETL            |
-| Pandas     | Transformação  |
-| Airflow    | Orquestração   |
-| BigQuery   | Data Warehouse |
-| Docker     | Ambiente (integração preparada)      |
-| Matplotlib | Visualização (integração preparada)   |
+| Tecnologia | Papel |
+| --- | --- |
+| Python | ETL |
+| Pandas | Transformação |
+| Airflow | Orquestração |
+| BigQuery | Data Warehouse |
+| Docker | Ambiente (integração preparada) |
+| Matplotlib | Visualização (integração preparada) |
 
 
 ## Arquitetura
