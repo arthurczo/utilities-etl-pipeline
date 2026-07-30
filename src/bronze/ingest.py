@@ -1,5 +1,5 @@
-"""Camada Bronze: ingestão do dado bruto sem regra de negócio, preservando
-metadados de origem para permitir reprocessamento a partir daqui."""
+"""Camada Bronze: ingestão do dado bruto sem regra de negócio"""
+
 import pandas as pd
 from datetime import datetime, timezone
 import sys
