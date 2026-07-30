@@ -1,11 +1,14 @@
 """Camada Bronze: ingestão do dado bruto sem regra de negócio, preservando
 metadados de origem para permitir reprocessamento a partir daqui."""
 import pandas as pd
-from pathlib import Path
 from datetime import datetime, timezone
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from common.paths import DATA_DIR
 
-RAW_DIR = Path(__file__).parent.parent.parent / "data" / "raw"
-BRONZE_DIR = Path(__file__).parent.parent.parent / "data" / "bronze"
+RAW_DIR = DATA_DIR / "raw"
+BRONZE_DIR = DATA_DIR / "bronze"
 
 REQUIRED_COLUMNS = ["id_unidade_consumidora", "regiao", "data_leitura", "consumo_kwh"]
 

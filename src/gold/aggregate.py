@@ -3,10 +3,13 @@ Duas tabelas são geradas: consumo mensal por região (com variação percentual
 e contagem de atípicos) e ranking das unidades consumidoras de maior consumo.
 """
 import pandas as pd
+import sys
 from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from common.paths import DATA_DIR
 
-SILVER_DIR = Path(__file__).parent.parent.parent / "data" / "silver"
-GOLD_DIR = Path(__file__).parent.parent.parent / "data" / "gold"
+SILVER_DIR = DATA_DIR / "silver"
+GOLD_DIR = DATA_DIR / "gold"
 
 
 def aggregate(silver_filename: str) -> tuple[Path, Path]:

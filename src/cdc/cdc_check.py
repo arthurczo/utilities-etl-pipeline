@@ -4,10 +4,13 @@ racional da abordagem."""
 import json
 import hashlib
 import pandas as pd
-from pathlib import Path
 from datetime import datetime, timezone
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from common.paths import DATA_DIR
 
-RAW_DIR = Path(__file__).parent.parent.parent / "data" / "raw"
+RAW_DIR = DATA_DIR / "raw"
 CHECKPOINT_FILE = Path(__file__).parent / "_checkpoint.json"
 
 

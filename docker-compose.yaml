@@ -8,6 +8,10 @@
 x-airflow-common: &airflow-common
   image: apache/airflow:2.9.3
   environment:
+    # Sobrescreve o cálculo relativo de paths em src/common/paths.py —
+    # necessário porque src/ é montado dentro de dags/ no container,
+    # em profundidade diferente da estrutura local do projeto.
+    PIPELINE_DATA_DIR: /opt/airflow/data
     # LocalExecutor = as tasks rodam como processos locais no mesmo container
     # do scheduler. Não precisa de Redis/Celery/Workers separados.
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
@@ -22,7 +26,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__WEBSERVER__WORKER_REFRESH_BATCH_SIZE: '1'
     AIRFLOW__WEBSERVER__WEB_SERVER_WORKER_TIMEOUT: '300'
     # Pacotes extras instalados automaticamente no container (pandas, cliente do BigQuery etc)
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-pandas google-cloud-bigquery db-dtypes}
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-pandas numpy matplotlib google-cloud-bigquery db-dtypes}
   volumes:
     # Aqui é a mágica: essas pastas do seu PC "aparecem" dentro do container.
     # O Airflow lê as DAGs, mas quem processa os dados de verdade é o Python

@@ -5,10 +5,13 @@ anomalia operacional (vazamento, defeito de equipamento) e a decisão de
 descartar cabe à camada de consumo, não ao pipeline.
 """
 import pandas as pd
+import sys
 from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from common.paths import DATA_DIR
 
-BRONZE_DIR = Path(__file__).parent.parent.parent / "data" / "bronze"
-SILVER_DIR = Path(__file__).parent.parent.parent / "data" / "silver"
+BRONZE_DIR = DATA_DIR / "bronze"
+SILVER_DIR = DATA_DIR / "silver"
 
 IQR_MULTIPLIER = 1.5  # limite padrão de mercado para detecção de outlier via IQR
 

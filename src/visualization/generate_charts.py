@@ -3,10 +3,13 @@ README/portfólio. Para um dashboard interativo e ao vivo, conectar a tabela
 Gold no BigQuery diretamente ao Looker Studio (ver README)."""
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
 from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+from common.paths import DATA_DIR, get_data_dir
 
-GOLD_DIR = Path(__file__).parent.parent.parent / "data" / "gold"
-REPORTS_DIR = Path(__file__).parent.parent.parent / "reports"
+GOLD_DIR = DATA_DIR / "gold"
+REPORTS_DIR = get_data_dir().parent / "reports"
 
 plt.style.use("seaborn-v0_8-whitegrid")
 
