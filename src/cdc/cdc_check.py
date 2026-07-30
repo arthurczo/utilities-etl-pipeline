@@ -1,6 +1,6 @@
 """CDC simulado via hash de linha + checkpoint, sem depender de
-infraestrutura de replicação (Debezium/Datastream). Ver README para o
-racional da abordagem."""
+infraestrutura de replicação (Debezium/Datastream)."""
+
 import json
 import hashlib
 import pandas as pd
@@ -27,10 +27,7 @@ def detect_changes(filename: str) -> pd.DataFrame:
         known_hashes = set(checkpoint.get("hashes", []))
     else:
         known_hashes = set()
-
-    # cobre INSERT (hash novo) e UPDATE (conteúdo mudou -> hash mudou)
     changed_df = df[~df["_row_hash"].isin(known_hashes)].copy()
-
     checkpoint = {
         "last_run": datetime.now(timezone.utc).isoformat(),
         "hashes": df["_row_hash"].tolist(),
