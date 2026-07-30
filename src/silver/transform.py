@@ -1,9 +1,5 @@
-"""Camada Silver: tipagem, deduplicação, padronização e detecção de outliers.
-Falhas de qualidade (nulo, duplicata) são descartadas; outliers estatísticos
-são apenas sinalizados (`consumo_atipico`), pois podem ser sinal real de
-anomalia operacional (vazamento, defeito de equipamento) e a decisão de
-descartar cabe à camada de consumo, não ao pipeline.
-"""
+"""Camada Silver: tipagem, deduplicação, padronização e detecção de outliers. """
+
 import pandas as pd
 import sys
 from pathlib import Path
@@ -13,13 +9,10 @@ from common.paths import DATA_DIR
 BRONZE_DIR = DATA_DIR / "bronze"
 SILVER_DIR = DATA_DIR / "silver"
 
-IQR_MULTIPLIER = 1.5  # limite padrão de mercado para detecção de outlier via IQR
+IQR_MULTIPLIER = 1.5 
 
 
 def _flag_outliers(df: pd.DataFrame) -> pd.DataFrame:
-    """Marca outliers por região via IQR — o limiar de anomalia varia por
-    região (Nordeste tem base de consumo maior que Sul), então um único
-    limite global geraria falsos positivos/negativos."""
     def flag_group(group: pd.DataFrame) -> pd.Series:
         q1, q3 = group["consumo_kwh"].quantile([0.25, 0.75])
         iqr = q3 - q1
