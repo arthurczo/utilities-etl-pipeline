@@ -1,4 +1,4 @@
-# Credenciais - NUNCA subir isso pro GitHub
+# Credenciais (private) 
 gcp-key.json
 .env
 
@@ -11,7 +11,7 @@ __pycache__/
 logs/
 *.log
 
-# Dados gerados localmente (mantemos só a estrutura de pastas, não os arquivos)
+# Dados gerados localmente 
 data/raw/*
 data/bronze/*
 data/silver/*
