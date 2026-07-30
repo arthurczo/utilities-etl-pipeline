@@ -8,13 +8,33 @@ e carga no BigQuery.
 
 ## Stack
 
-Python · Apache Airflow (Docker) · Google BigQuery · Pandas · Matplotlib
+- Python
+- Pandas
+- Apache Airflow
+- Docker
+- SQL
+- Arquitetura Medallion
+- BigQuery (integração preparada)
+- Looker Studio (integração preparada)
+
+  | Tecnologia | Papel          |
+| ---------- | -------------- |
+| Python     | ETL            |
+| Pandas     | Transformação  |
+| Airflow    | Orquestração   |
+| BigQuery   | Data Warehouse |
+| Docker     | Ambiente (integração preparada)      |
+| Matplotlib | Visualização (integração preparada)   |
+
 
 ## Arquitetura
 
 ```
 data/raw/  →  BRONZE  →  SILVER  →  GOLD  →  Visualização / BigQuery
 (CSV bruto)  (ingestão)  (limpeza)  (agregação)
+
+<img width="1832" height="327" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/c92c45fc-363b-40f0-b755-6a29b1262739" />
+
 ```
 
 Orquestrado pela DAG `utilities_medallion_pipeline`, rodando diariamente
