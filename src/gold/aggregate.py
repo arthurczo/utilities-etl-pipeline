@@ -1,7 +1,5 @@
-"""Camada Gold: agregações de negócio prontas para consumo (BI/BigQuery).
-Duas tabelas são geradas: consumo mensal por região (com variação percentual
-e contagem de atípicos) e ranking das unidades consumidoras de maior consumo.
-"""
+"""Camada Gold: agregações de negócio prontas para consumo (BI/BigQuery). """
+
 import pandas as pd
 import sys
 from pathlib import Path
@@ -27,7 +25,6 @@ def aggregate(silver_filename: str) -> tuple[Path, Path]:
         .reset_index()
         .sort_values(["regiao", "ano_mes"])
     )
-    # variação mês a mês por região — indicador central pra dashboard de tendência
     mensal["variacao_pct_mom"] = (
         mensal.groupby("regiao")["consumo_total_kwh"].pct_change().round(4) * 100
     )
