@@ -1,0 +1,25 @@
+# Credenciais - NUNCA subir isso pro GitHub
+gcp-key.json
+.env
+
+# Ambiente Python
+venv/
+__pycache__/
+*.pyc
+
+# Airflow
+logs/
+*.log
+
+# Dados gerados localmente (mantemos só a estrutura de pastas, não os arquivos)
+data/raw/*
+data/bronze/*
+data/silver/*
+data/gold/*
+!data/raw/.gitkeep
+!data/bronze/.gitkeep
+!data/silver/.gitkeep
+!data/gold/.gitkeep
+
+# SO
+.DS_Store
