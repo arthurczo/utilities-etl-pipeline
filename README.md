@@ -15,7 +15,8 @@ e carga no BigQuery.
 | Airflow | Orquestração |
 | BigQuery | Data Warehouse (integração preparada) |
 | Docker | Ambiente  |
-| Matplotlib | Visualização (integração preparada) |
+| Matplotlib | Visualização |
+| Google Cloud Platform | conceitos |
 
 
 ## Arquitetura
