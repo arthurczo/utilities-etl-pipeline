@@ -8,15 +8,17 @@ e carga no BigQuery.
 
 ## Stack
 
-| Tecnologia | Papel |
-| --- | --- |
-| Python | ETL |
-| Pandas | Transformação |
-| Airflow | Orquestração |
-| BigQuery | Data Warehouse (integração preparada) |
-| Docker | Ambiente  |
-| Matplotlib | Visualização |
-| Google Cloud Platform | conceitos |
+| Tecnologia                  | Papel no projeto                                     |
+| --------------------------- | ---------------------------------------------------- |
+| Python                      | Implementação do pipeline ETL e regras de negócio    |
+| Pandas                      | Leitura, transformação, limpeza e agregação de dados |
+| Apache Airflow              | Orquestração e agendamento do pipeline               |
+| Docker                      | Ambiente de execução do Airflow e dependências       |
+| SQL                         | Consultas, transformações e agregações de dados      |
+| Matplotlib                  | Geração de visualizações e relatórios                |
+| Google BigQuery             | Data Warehouse (integração preparada)                |
+| Google Cloud Platform (GCP) | Plataforma alvo para implantação da solução          |
+
 
 
 ## Arquitetura
