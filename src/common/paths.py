@@ -1,8 +1,3 @@
-"""Resolução centralizada do diretório de dados. Local e Docker montam
-src/ em profundidades diferentes relativas à raiz do projeto (local:
-src/ na raiz; container: src/ dentro de dags/), então o cálculo relativo
-quebra em um dos dois ambientes. PIPELINE_DATA_DIR, setada no
-docker-compose, sobrescreve o cálculo automático nesse caso."""
 import os
 from pathlib import Path
 
