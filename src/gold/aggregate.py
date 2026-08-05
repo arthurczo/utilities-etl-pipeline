@@ -22,7 +22,7 @@ def aggregate(silver_filename: str) -> tuple[Path, Path]:
     frame["ano_mes"] = pd.to_datetime(frame["data_leitura"]).dt.to_period("M").astype(str)
     monthly = (
         frame.groupby(["regiao", "ano_mes"], as_index=False)
-        .agg(consumo_medio_kwh=("consumo_kwh", "mean"), consumo_total_kwh=("consumo_kwh", "sum"), qtd_unidades=("id_unidade_consumidora", "nunique"), qtd_leituras_atipicas=("consumo_atipico", "sum"))
+        .agg(consumo_medio_kwh=("consumo_kwh", "mean"), consumo_total_kwh=("consumo_kwh", "sum"), qtd_unidades=("id_unidade_consumidora", "nunique"), qtd_leituras=("consumo_kwh", "size"), qtd_leituras_atipicas=("consumo_atipico", "sum"))
         .sort_values(["regiao", "ano_mes"])
     )
     monthly["variacao_pct_mom"] = monthly.groupby("regiao")["consumo_total_kwh"].pct_change().mul(100).round(2)
