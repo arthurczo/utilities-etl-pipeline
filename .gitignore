@@ -1,8 +1,6 @@
 # Credenciais (private) 
 gcp-key.json
 .env
-.env.*
-!.env.example
 
 # Ambiente Python
 venv/

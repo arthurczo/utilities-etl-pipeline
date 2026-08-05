@@ -1,10 +1,8 @@
 # Demo assets
 
-The architecture diagrams are versioned SVGs so they remain crisp in GitHub and presentations.
+The architecture diagrams are versioned SVGs so they remain crisp in GitHub and presentations. Dashboard screenshots are captured from the local Streamlit application using Gold artifacts.
 
-`dashboard-preview.png` is deliberately pending until a real Streamlit session can be captured. Do not replace it with a mock or generated screenshot: launch the dashboard against Gold artifacts and capture the rendered browser.
-
-The following files are intentionally **not** committed as fake demos:
+The following GIFs are intentionally **not** committed as fake demos:
 
 | Expected file | How to record |
 |---|---|

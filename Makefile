@@ -13,7 +13,7 @@ test:
 	python -m pytest -q
 
 lint:
-	python -m compileall -q src dags scripts
+	python -m compileall -q src dags scripts dashboard
 
 docker-init:
 	docker compose up airflow-init
