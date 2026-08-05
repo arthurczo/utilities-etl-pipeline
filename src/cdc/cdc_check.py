@@ -1,43 +1,52 @@
-"""CDC simulado via hash de linha + checkpoint, sem depender de
-infraestrutura de replicação (Debezium/Datastream)."""
+"""File-based CDC simulation with an atomic, data-directory checkpoint."""
+from __future__ import annotations
 
-import json
 import hashlib
-import pandas as pd
+import json
+import logging
 from datetime import datetime, timezone
-import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).parent.parent))
-from common.paths import DATA_DIR
 
-RAW_DIR = DATA_DIR / "raw"
-CHECKPOINT_FILE = Path(__file__).parent / "_checkpoint.json"
+import pandas as pd
 
+from src.common.config import PATHS
+from src.common.io import require_file
 
-def _row_hash(row) -> str:
-    return hashlib.md5(str(row.values).encode()).hexdigest()
+LOGGER = logging.getLogger(__name__)
 
 
-def detect_changes(filename: str) -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / filename)
-    df["_row_hash"] = df.apply(_row_hash, axis=1)
+def _row_hash(row: pd.Series) -> str:
+    """Create a stable content hash independent of dataframe representation."""
+    payload = json.dumps(row.to_dict(), sort_keys=True, default=str, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
-    if CHECKPOINT_FILE.exists():
-        checkpoint = json.loads(CHECKPOINT_FILE.read_text())
-        known_hashes = set(checkpoint.get("hashes", []))
-    else:
-        known_hashes = set()
-    changed_df = df[~df["_row_hash"].isin(known_hashes)].copy()
-    checkpoint = {
-        "last_run": datetime.now(timezone.utc).isoformat(),
-        "hashes": df["_row_hash"].tolist(),
-    }
-    CHECKPOINT_FILE.write_text(json.dumps(checkpoint))
 
-    print(f"[CDC] {len(changed_df)} registros novos/alterados de {len(df)} totais")
-    return changed_df.drop(columns=["_row_hash"])
+def _load_checkpoint(checkpoint_path: Path) -> set[str]:
+    if not checkpoint_path.is_file():
+        return set()
+    try:
+        return set(json.loads(checkpoint_path.read_text(encoding="utf-8")).get("hashes", []))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"Invalid CDC checkpoint: {checkpoint_path}") from error
+
+
+def detect_changes(filename: str, checkpoint_path: Path | None = None) -> pd.DataFrame:
+    """Return new or changed source records and persist their current hashes."""
+    source_path = PATHS.raw / filename
+    require_file(source_path)
+    checkpoint = checkpoint_path or PATHS.checkpoint
+    frame = pd.read_csv(source_path)
+    frame["_row_hash"] = frame.apply(_row_hash, axis=1)
+    known_hashes = _load_checkpoint(checkpoint)
+    changed = frame.loc[~frame["_row_hash"].isin(known_hashes)].drop(columns="_row_hash").copy()
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    temporary = checkpoint.with_suffix(".tmp")
+    temporary.write_text(json.dumps({"last_run": datetime.now(timezone.utc).isoformat(), "hashes": frame["_row_hash"].tolist()}), encoding="utf-8")
+    temporary.replace(checkpoint)
+    LOGGER.info("CDC completed: changed_rows=%s total_rows=%s", len(changed), len(frame))
+    return changed
 
 
 if __name__ == "__main__":
-    delta = detect_changes("consumo_energia.csv")
-    print(delta.head())
+    logging.basicConfig(level=logging.INFO)
+    print(detect_changes("consumo_energia.csv").head())

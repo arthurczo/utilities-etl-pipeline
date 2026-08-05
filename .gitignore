@@ -1,11 +1,16 @@
 # Credenciais (private) 
 gcp-key.json
 .env
+.env.*
+!.env.example
 
 # Ambiente Python
 venv/
+.venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+.idea/
 
 # Airflow
 logs/
@@ -20,6 +25,7 @@ data/gold/*
 !data/bronze/.gitkeep
 !data/silver/.gitkeep
 !data/gold/.gitkeep
+data/state/
 
 # SO
 .DS_Store
